@@ -1,0 +1,176 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  min-height: 100%;
+  width: 100%;
+  color: #333; // Dark gray text
+
+  h2 {
+    color: #2979ff; // Blue accent color
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+ .task-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); // Responsive grid
+    gap: 25px;
+    width: 100%;
+    max-width: 1200px;
+        .task-card {
+            background-color: #fff; // White cards
+            border: 1px solid #e0e0e0; // Light gray border
+            border-radius: 10px; // Rounded corners
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); // Subtle shadow
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            }
+
+            .task-card-content {
+                h3 {
+                    margin-top: 0;
+                    margin-bottom: 8px;
+                    font-size: 1.3em;
+                    color: #2979ff; // Blue accent
+                    font-weight: 500;
+                }
+
+                .due-date {
+                    font-size: 0.85em;
+                    color: #777;
+                    margin-bottom: 8px;
+                }
+
+                .task-type {
+                    font-size: 0.75em;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    color: #fff;
+                    padding: 3px 6px;
+                    border-radius: 4px;
+                    display: inline-block;
+                }
+            }
+        }
+
+        .selected-card {
+            transform: translateY(-6px); // More lift on selection
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border: 2px solid;
+        }
+        .critical-task {
+            .task-type {  background-color: #ff4081; }
+            &.selected-card { box-shadow: 0 0 15px 5px rgba(255, 64, 129, 0.5); border-color: #ff4081; }
+          }
+          .normal-task {
+            .task-type { background-color: #2979ff;}
+            &.selected-card { box-shadow: 0 0 15px 5px rgba(52,152,219, 0.5);  border-color: #2979ff;}
+          }
+          .low-task {
+            .task-type { background-color: #4caf50;}
+            &.selected-card { box-shadow: 0 0 20px 8px rgba(76, 175, 80, 0.5); border-color: #4caf50;}
+          }
+
+  }
+    .task-details-wrapper {
+        width: 100%;
+        max-width: 800px; /* Adjust as needed */
+        margin: 0 auto; /* Center horizontally */
+        perspective: 1000px; /* Add perspective for 3D effect */
+
+    }
+  .task-details {
+        background-color: #fff; // White background
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease; // Smooth transform
+
+        &:hover{
+             transform: scale(1.02);
+        }
+
+        h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #2979ff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            font-weight: 500;
+            color: #2979ff;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: center;
+
+            strong {
+                font-weight: 500;
+                color: #2979ff;
+                min-width: 140px;
+                margin-right: 10px;
+            }
+
+            span {
+                flex: 1;
+                color: #555;
+                word-break: break-word;
+            }
+        }
+      .button-group {
+      margin-top: 25px;
+      text-align: center;
+
+      button {
+        margin: 0 10px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        font-size: 1em;
+        font-weight: 500;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+
+      .close-btn {
+        background-color: #607d8b;
+        color: white;
+        &:hover { background-color: darken(#607d8b, 10%); }
+      }
+
+      .edit-btn {
+            background-color: #2979ff; // Blue
+            color: #fff; // White
+
+        &:hover { background-color: darken(#2979ff, 10%); }
+      }
+
+      .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        &:hover { background-color: darken(#dc3545, 10%); }
+      }
+    }
+  }
+
+  .no-tasks {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+        font-size: 1.5em;
+  }
+}

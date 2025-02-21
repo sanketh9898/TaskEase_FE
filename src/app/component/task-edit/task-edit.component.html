@@ -1,0 +1,45 @@
+<div class="task-edit-container" *ngIf="task">
+    <h2>Edit Task</h2>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Task Name:</label>
+            <input type="text" id="name" formControlName="name">
+            <div *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched" class="error-message">
+              Task Name is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="taskTime">Due Date/Time:</label>
+            <input type="datetime-local" id="taskTime" formControlName="taskTime">
+             <div *ngIf="taskForm.get('taskTime')?.invalid && taskForm.get('taskTime')?.touched" class="error-message">
+              Task Time is required.
+             </div>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <select id="type" formControlName="type">
+                <option value="Critical">Critical</option>
+                <option value="Normal">Normal</option>
+                <option value="Low">Low</option>
+            </select>
+            <div *ngIf="taskForm.get('type')?.invalid && taskForm.get('type')?.touched" class="error-message">
+                Task Type is required.
+            </div>
+        </div>
+
+        <button type="submit" [disabled]="taskForm.invalid">Update Task</button>
+          <div *ngIf="errorMessage" class="error-message">
+              {{ errorMessage }}
+          </div>
+    </form>
+</div>
+<div *ngIf="!task">
+    <p>Loading task...</p>
+</div>

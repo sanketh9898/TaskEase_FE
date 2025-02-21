@@ -1,0 +1,20 @@
+<div class="task-list-container">
+    <h2>Task List</h2>
+    <ul class="task-list">
+      <li *ngFor="let task of tasks" class="task-item">
+        <div class="task-details">
+          <span class="task-name">{{ task.name }}</span>
+          <span class="task-type">({{ task.type }})</span>
+          <span class="task-time">{{ task.taskTime | date:'medium' }}</span> <p class="task-description" *ngIf="task.description">{{ task.description }}</p>
+        </div>
+        <div class="task-actions">
+          <button (click)="editTask(task.taskId!)">Edit</button>
+          <button (click)="deleteTask(task.taskId!)">Delete</button>
+        </div>
+      </li>
+    </ul>
+
+    <div *ngIf="tasks.length === 0" class="no-tasks">
+      No tasks found.
+    </div>
+  </div>

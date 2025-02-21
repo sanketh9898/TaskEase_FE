@@ -1,0 +1,50 @@
+<div class="home-container">
+  <h2>Welcome to TaskEase!</h2>
+
+  <div *ngIf="!selectedTask" class="task-list">
+    <div *ngFor="let task of tasks" class="task-card"
+        [ngClass]="{
+          'critical-task': task.type === 'Critical',
+          'normal-task': task.type === 'Normal',
+          'low-task': task.type === 'Low',
+          'selected-card': selectedTask === task
+        }"
+        (click)="selectTask(task)">
+      <div class="task-card-content">
+          <h3>{{ task.name }}</h3>
+          <p class="due-date">Due: {{ task.taskTime | date:'medium' }}</p>
+          <p class="task-type">{{ task.type }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedTask" class="task-details-wrapper">
+    <div class="task-details">
+      <h2>Task Details</h2>
+      <div class="detail-row">
+        <strong>Name:</strong>
+        <span>{{ selectedTask.name }}</span>
+      </div>
+      <div class="detail-row">
+        <strong>Description:</strong>
+        <span>{{ selectedTask.description || 'No description' }}</span>
+      </div>
+      <div class="detail-row">
+        <strong>Due Date/Time:</strong>
+        <span>{{ selectedTask.taskTime | date:'medium' }}</span>
+      </div>
+      <div class="detail-row">
+        <strong>Type:</strong>
+        <span>{{ selectedTask.type }}</span>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="close-btn" (click)="closeDetails()">Close</button>
+        <button type="button" class="edit-btn" (click)="editTask(selectedTask.taskId)">Edit</button>
+        <button type="button" class="delete-btn" (click)="deleteTask(selectedTask.taskId)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tasks.length === 0 && !selectedTask" class="no-task">No Task Added Yet!</div>
+</div>

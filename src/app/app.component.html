@@ -1,0 +1,19 @@
+<div class="navbar">
+  <button type="button" (click)="goToHome()">TaskEase</button>
+  <div class="nav-links">
+      <ng-container *ngIf="authService.currentUser$ | async; else loggedOut">
+          <button type="button" (click)="goToHome()">Home</button>
+          <button type="button" (click)="goToAddTask()">Add Task</button>
+          <button type="button" (click)="goToTaskList()">Task List</button>
+          <button type="button" (click)="logout()">Logout</button>
+      </ng-container>
+      <ng-template #loggedOut>
+          <button type="button" (click)="goToLogin()">Login</button>
+          <button type="button" (click)="goToRegister()">Register</button>
+      </ng-template>
+  </div>
+</div>
+
+<div class="container">
+<router-outlet></router-outlet>
+</div>

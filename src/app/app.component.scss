@@ -1,0 +1,40 @@
+.navbar {
+  background-color: #fff;  // White navbar
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); // Subtle shadow
+  color: #333; // Dark gray text
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #ddd; // Light border
+
+  button {
+    color: #2979ff;  // Use the blue accent color
+    text-decoration: none;
+    margin-right: 15px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: darken(#2979ff, 10%); // Darker blue on hover
+      text-decoration: underline;
+    }
+  }
+  .nav-links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+}
+
+.container {
+  padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
