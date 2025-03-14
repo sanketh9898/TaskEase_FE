@@ -1,0 +1,10 @@
+{
+  "routes": {
+    "/": {},
+    "/add-task": {},
+    "/home": {},
+    "/login": {},
+    "/register": {},
+    "/task-list": {}
+  }
+}
