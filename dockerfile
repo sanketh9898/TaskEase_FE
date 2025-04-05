@@ -1,29 +1,27 @@
-# Step 1: Build the Angular Universal app
-FROM node:18 as build
+# Step 1: Use Node.js official image
+FROM node:18 AS build
 
+# Set working directory
 WORKDIR /app
 
-# Copy application files
-COPY . .
-
-# Install dependencies
+# Copy package.json and install dependencies
+COPY package.json ./
 RUN npm install
 
-# Build Angular Universal app
-RUN npm run build:ssr
+# Copy the rest of your app's files
+COPY . .
 
-# Step 2: Serve the SSR app using Node.js
-FROM node:18
+# Build the Angular app for production
+RUN npm run build --prod
 
-# Copy built Angular Universal app from build stage
-COPY --from=build /app/dist/frontend/* /app/dist/frontend
+# Step 2: Use Nginx to serve the built Angular app
+FROM nginx:alpine
 
-# Install dependencies needed to run SSR app
-WORKDIR /app
-RUN npm install --only=production
+# Copy the build output from the previous step to Nginx's public directory
+COPY --from=build /app/dist/frontend /usr/share/nginx/html
 
-# Expose the port for the app
-EXPOSE 4000
+# Expose port 80 for the container
+EXPOSE 80
 
-# Run the SSR app using Node.js
-CMD ["npm", "run", "serve:ssr"]
+# Run Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
