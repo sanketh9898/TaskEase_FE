@@ -10,7 +10,7 @@ COPY . .
 RUN npm install
 
 # Build the Angular app using the --configuration production flag
-RUN npm run build --configuration production
+RUN npm run build -- --configuration production
 
 # Use Nginx to serve the built app
 FROM nginx:alpine
