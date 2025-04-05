@@ -16,10 +16,10 @@ RUN npm run build -- --configuration production
 FROM nginx:alpine
 
 # Copy built files to Nginx directory
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
+COPY --from=build /app/dist/frontend/* /usr/share/nginx/html
 
 # Expose port 80 for the app
-EXPOSE 80
+EXPOSE 8080
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
