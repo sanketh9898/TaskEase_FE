@@ -24,7 +24,8 @@ RUN apk add --no-cache nodejs npm
 RUN npm install -g http-server
 
 # Copy the built Angular app to the nginx container
-COPY --from=build /TaskEase_FE/dist/* /usr/share/nginx/html/
+# Ensure the path to the dist directory is correct, e.g., /app/dist/<your-app-name>/
+COPY --from=build /app/dist/<your-app-name>/* /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
