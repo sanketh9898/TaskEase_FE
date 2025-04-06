@@ -1,24 +1,22 @@
-# Stage 1: Build the Angular app
-FROM node:18-alpine as build
+# Step 1: Build Angular app
+FROM node:18-alpine AS build
 
 WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
 COPY . .
+RUN npm install
+RUN npm run build
 
-ARG ENV=development
-RUN if [ "$ENV" = "production" ]; then npm run build --prod; else npm run build; fi
-# Debug: List contents of dist
-RUN ls -la /app/dist
+# Step 2: Serve the app using http-server
+FROM node:18-alpine
 
-# Stage 2: Serve with Nginx
-FROM nginx:alpine
+WORKDIR /app
+RUN npm install -g http-server
 
-# Copy built files from previous stage (assuming outputPath is dist/frontend)
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
+# Copy built Angular app from previous stage
+COPY --from=build /TaskEase_FE/dist/* /app/
 
-EXPOSE 80
+# Expose port 8080
+EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+# Run the static server
+CMD ["http-server", "/app", "-p", "8080"]
