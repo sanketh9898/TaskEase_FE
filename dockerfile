@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular app
-FROM node:16-alpine as build
+FROM node:18-alpine as build
 
 WORKDIR /app
 
@@ -20,10 +20,6 @@ FROM nginx:alpine
 # Copy built files from previous stage
 COPY --from=build /app/dist/your-app-name /usr/share/nginx/html
 
-# Copy custom Nginx config if needed (optional)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
 EXPOSE 80
 
-# Pass environment variables at runtime
 CMD ["nginx", "-g", "daemon off;"]
