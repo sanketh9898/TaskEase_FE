@@ -18,7 +18,7 @@ RUN if [ "$ENV" = "production" ]; then npm run build --prod; else npm run build;
 FROM nginx:alpine
 
 # Copy built files from previous stage
-COPY --from=build /app/dist/TaskEase_FE /usr/share/nginx/html
+COPY --from=build /app/dist/frontend /usr/share/nginx/html
 
 EXPOSE 80
 
