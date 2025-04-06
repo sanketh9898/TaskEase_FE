@@ -1,27 +1,29 @@
-# Step 1: Use Node.js official image
-FROM node:18 AS build
+# Stage 1: Build the Angular app
+FROM node:16-alpine as build
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json ./
+# Copy package files and install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Copy the rest of your app's files
+# Copy all source files
 COPY . .
 
-# Build the Angular app for production
-RUN npm run build --prod
+# Build with specific environment (default to dev)
+ARG ENV=development
+RUN if [ "$ENV" = "production" ]; then npm run build --prod; else npm run build; fi
 
-# Step 2: Use Nginx to serve the built Angular app
+# Stage 2: Serve with Nginx
 FROM nginx:alpine
 
-# Copy the build output from the previous step to Nginx's public directory
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
+# Copy built files from previous stage
+COPY --from=build /app/dist/your-app-name /usr/share/nginx/html
 
-# Expose port 80 for the container
+# Copy custom Nginx config if needed (optional)
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
 
-# Run Nginx in the foreground
+# Pass environment variables at runtime
 CMD ["nginx", "-g", "daemon off;"]
