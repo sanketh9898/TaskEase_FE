@@ -25,7 +25,7 @@ RUN npm install -g http-server
 
 # Copy the built Angular app to the nginx container
 # Ensure the path to the dist directory is correct, e.g., /app/dist/<your-app-name>/
-COPY --from=build /app/dist/<your-app-name>/* /usr/share/nginx/html/
+COPY --from=build /app/dist/TaskEase_FE/* /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
