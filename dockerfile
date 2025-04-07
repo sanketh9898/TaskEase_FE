@@ -2,7 +2,7 @@
 
  FROM node:18-alpine
 
- WORKDIR /app
+ WORKDIR /TaskEase_FE
 
  COPY package*.json ./
 
@@ -14,7 +14,7 @@
 
  FROM nginx:alpine
 
- COPY --from=0 /app/dist/<your-app-name> /usr/share/nginx/html
+ COPY --from=0 /TaskEase_FE/dist/frontend /usr/share/nginx/html
 
  EXPOSE 80
 
