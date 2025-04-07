@@ -1,34 +1,21 @@
-# Build stage
-FROM node:18-alpine as build
+# Option 2: With Nginx (Recommended for production)
 
-# Set the working directory
-WORKDIR /app
+ FROM node:18-alpine
 
-# Install dependencies
-COPY package*.json ./
-RUN npm install
+ WORKDIR /app
 
-# Copy the rest of the application code
-COPY . .
+ COPY package*.json ./
 
-# Build the Angular app
-RUN npm run build
+ RUN npm install
 
-# Production stage
-FROM nginx:alpine
+ COPY . .
 
-# Install Node.js and npm
-RUN apk add --no-cache nodejs npm
+ RUN npm run build -- --prod
 
-# Install http-server globally
-RUN npm install -g http-server
+ FROM nginx:alpine
 
-# Copy the built Angular app to the nginx container
-# Ensure the path to the dist directory is correct, e.g., /app/dist/<your-app-name>/
-COPY --from = build TaskEase_FE/dist/frontend/* /usr/share/nginx/html/
+ COPY --from=0 /app/dist/<your-app-name> /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+ EXPOSE 80
 
-# Start the nginx server
-CMD ["nginx", "-g", "daemon off;"]
+ CMD ["nginx", "-g", "daemon off;"]
