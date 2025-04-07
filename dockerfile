@@ -14,7 +14,7 @@
 
  FROM nginx:alpine
 
- COPY --from=0 /TaskEase_FE/dist/frontend /usr/share/nginx/html
+ COPY --from=0 /TaskEase_FE/dist/frontend/browser /usr/share/nginx/html
 
  EXPOSE 80
 
