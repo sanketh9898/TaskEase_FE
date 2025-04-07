@@ -1,21 +1,15 @@
-# Option 2: With Nginx (Recommended for production)
+FROM node:18-alpine
 
- FROM node:18-alpine
+WORKDIR /TaskEase_FE
 
- WORKDIR /TaskEase_FE
+COPY package*.json ./
 
- COPY package*.json ./
+RUN npm install
 
- RUN npm install
+COPY . .
 
- COPY . .
+RUN npm run build -- --configuration production --ssr
 
- RUN npm run build -- --configuration production
+EXPOSE 4000
 
- FROM nginx:alpine
-
- COPY --from=0 /TaskEase_FE/dist/frontend/browser /usr/share/nginx/html
-
- EXPOSE 80
-
- CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "dist/frontend/server/main.js"]
