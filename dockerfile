@@ -1,5 +1,6 @@
 # Stage 1: Build the Angular application
-FROM node:20-alpine AS build # Change to Node 20
+# Change to Node 20
+FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
