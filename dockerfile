@@ -1,9 +1,9 @@
 # Stage 1: Build the Angular application
-FROM node:16-alpine AS build
+FROM node:20-alpine AS build # Change to Node 20
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-RUN npm install -g @angular/cli # Install Angular CLI globally
+RUN npm install -g @angular/cli
 COPY . .
 RUN ng build --configuration production
 
