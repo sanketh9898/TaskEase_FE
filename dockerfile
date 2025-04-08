@@ -3,6 +3,7 @@ FROM node:16-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
+RUN npm install -g @angular/cli # Install Angular CLI globally
 COPY . .
 RUN ng build --configuration production
 
