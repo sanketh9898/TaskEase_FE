@@ -9,7 +9,7 @@ RUN ng build --configuration production
 
 # Stage 2: Serve the Angular application with Nginx
 FROM nginx:alpine
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+COPY --from=build /TaskEase_FE/dist/frontend/browser /usr/share/nginx/html
 # Override the default Nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
